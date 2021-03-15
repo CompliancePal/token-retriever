@@ -9,5 +9,5 @@ export const getToken = async (): Promise<string> => {
 
   const {token}: {token: string} = await res.json()
 
-  return token
+  return `x-access-token:${token}`
 }
