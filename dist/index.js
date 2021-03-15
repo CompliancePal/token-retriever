@@ -22,10 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getToken = void 0;
 const node_fetch_1 = __importDefault(__webpack_require__(467));
-const getToken = () => __awaiter(void 0, void 0, void 0, function* () {
-    const tokenUrl = process.env.TOKEN_URL;
-    if (tokenUrl === undefined)
-        throw new Error('TOKEN_URL not set');
+const getToken = (tokenUrl) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield node_fetch_1.default(tokenUrl);
     const { token } = yield res.json();
     return `x-access-token:${token}`;
@@ -74,7 +71,8 @@ const get_token_1 = __webpack_require__(457);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const token = yield get_token_1.getToken();
+            const url = core.getInput('url');
+            const token = yield get_token_1.getToken(url);
             core.setSecret(token);
             core.setOutput('token', token);
         }

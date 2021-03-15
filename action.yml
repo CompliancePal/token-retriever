@@ -2,6 +2,11 @@ name: 'Token retriever'
 description: 'Retrieves a token'
 author: 'CompliancePal'
 
+inputs:
+  url:
+    required: true
+    description: token backend url
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
