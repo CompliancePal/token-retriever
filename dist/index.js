@@ -27,7 +27,7 @@ const getToken = () => __awaiter(void 0, void 0, void 0, function* () {
     if (tokenUrl === undefined)
         throw new Error('TOKEN_URL not set');
     const res = yield node_fetch_1.default(tokenUrl);
-    const { token } = res.json();
+    const { token } = yield res.json();
     return token;
 });
 exports.getToken = getToken;

@@ -7,9 +7,7 @@ export const getToken = async (): Promise<string> => {
 
   const res = await fetch(tokenUrl)
 
-  const {token} = (res.json() as unknown) as {
-    token: string
-  }
+  const {token}: {token: string} = await res.json()
 
   return token
 }
