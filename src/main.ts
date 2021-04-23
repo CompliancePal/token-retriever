@@ -3,9 +3,9 @@ import {getToken} from './get-token'
 
 async function run(): Promise<void> {
   try {
-    const url: string = core.getInput('url')
+    const tokenStr: string = core.getInput('token')
 
-    const token = await getToken(url)
+    const token = await getToken(tokenStr)
 
     core.setSecret(token)
     core.setOutput('token', token)

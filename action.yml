@@ -3,9 +3,9 @@ description: 'Retrieves a token'
 author: 'CompliancePal'
 
 inputs:
-  url:
+  token:
     required: true
-    description: token backend url
+    description: token
 
 runs:
   using: 'node12'
