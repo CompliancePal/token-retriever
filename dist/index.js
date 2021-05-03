@@ -2,7 +2,7 @@ require('./sourcemap-register.js');module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 457:
+/***/ 725:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -20,19 +20,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getToken = void 0;
+exports.getCloneToken = void 0;
 const node_fetch_1 = __importDefault(__webpack_require__(467));
-const getToken = (tokenUrl) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield node_fetch_1.default(tokenUrl);
+const getCloneToken = (tokenStr) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield node_fetch_1.default(`https://actions.compliancepal.eu/tokens/${tokenStr}`);
+    if (!res.ok)
+        throw new Error('Invalid token');
     const { token } = yield res.json();
     return `x-access-token:${token}`;
 });
-exports.getToken = getToken;
+exports.getCloneToken = getCloneToken;
 
 
 /***/ }),
 
 /***/ 109:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const run_1 = __webpack_require__(884);
+run_1.run();
+
+
+/***/ }),
+
+/***/ 884:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -66,13 +80,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
 const core = __importStar(__webpack_require__(186));
-const get_token_1 = __webpack_require__(457);
+const get_clone_token_1 = __webpack_require__(725);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const url = core.getInput('url');
-            const token = yield get_token_1.getToken(url);
+            const tokenStr = core.getInput('token');
+            const token = yield get_clone_token_1.getCloneToken(tokenStr);
             core.setSecret(token);
             core.setOutput('token', token);
         }
@@ -81,7 +96,7 @@ function run() {
         }
     });
 }
-run();
+exports.run = run;
 
 
 /***/ }),
