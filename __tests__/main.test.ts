@@ -36,6 +36,5 @@ describe('test runs', () => {
 
   it('', async () => {
     await run()
-    process.stdout.write(JSON.stringify(Object.keys(process.env)))
   })
 })
