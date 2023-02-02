@@ -3,7 +3,7 @@ import {getToken} from './get-token'
 
 async function run(): Promise<void> {
   try {
-    const url: string = core.getInput('url')
+    const url = core.getInput('url')
 
     const token = await getToken(url)
 

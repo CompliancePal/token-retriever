@@ -1,7 +1,7 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 725:
+/***/ 457:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -19,21 +19,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getCloneToken = void 0;
+exports.getToken = void 0;
 const node_fetch_1 = __importDefault(__nccwpck_require__(467));
-const getCloneToken = (tokenStr) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield node_fetch_1.default(`https://actions.compliancepal.eu/tokens/${tokenStr}`);
-    if (!res.ok)
-        throw new Error('Invalid token');
+const getToken = (tokenUrl) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield node_fetch_1.default(tokenUrl);
     const { token } = yield res.json();
     return `x-access-token:${token}`;
 });
-exports.getCloneToken = getCloneToken;
+exports.getToken = getToken;
 
 
 /***/ }),
 
-/***/ 884:
+/***/ 109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -67,14 +65,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
 const core = __importStar(__nccwpck_require__(186));
-const get_clone_token_1 = __nccwpck_require__(725);
+const get_token_1 = __nccwpck_require__(457);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const tokenStr = core.getInput('token');
-            const token = yield get_clone_token_1.getCloneToken(tokenStr);
+            const url = core.getInput('url');
+            const token = yield get_token_1.getToken(url);
             core.setSecret(token);
             core.setOutput('token', token);
         }
@@ -83,7 +80,7 @@ function run() {
         }
     });
 }
-exports.run = run;
+run();
 
 
 /***/ }),
@@ -4590,19 +4587,13 @@ module.exports = require("zlib");
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-var exports = __webpack_exports__;
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const run_1 = __nccwpck_require__(884);
-run_1.run();
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(109);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
 //# sourceMappingURL=index.js.map
